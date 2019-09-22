@@ -2,20 +2,21 @@ package robot.subsystems.Commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import robot.Robot;
+import robot.RobotContainer;
 
 public class DriveCommand extends Command {
 
     private double speed;
 
     public DriveCommand(double speed){
-        requires(Robot.drivetrain);
+        requires(RobotContainer.drivetrain);
         this.speed = speed;
     }
 
     @Override
     protected void initialize() {
-        Robot.drivetrain.setLeftSpeed(speed);
-        Robot.drivetrain.setRightSpeed(speed);
+        RobotContainer.drivetrain.setLeftSpeed(speed);
+        RobotContainer.drivetrain.setRightSpeed(speed);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class DriveCommand extends Command {
 
     @Override
     protected boolean isFinished() {
-        return Robot.m_oi.xbox.getYButton();
+        return Robot.m_robotContainer.xbox.getYButton();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class DriveCommand extends Command {
 
     @Override
     protected void end() {
-        Robot.drivetrain.setRightSpeed(0);
-        Robot.drivetrain.setLeftSpeed(0);
+        RobotContainer.drivetrain.setRightSpeed(0);
+        RobotContainer.drivetrain.setLeftSpeed(0);
     }
 }

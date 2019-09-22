@@ -16,21 +16,25 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import robot.subsystems.Commands.DriveCommand;
+import robot.subsystems.DrivetrainSubsystem;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
-public class OI {
+public class RobotContainer {
 
+    public static DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
     public XboxController xbox = new XboxController(2);
+
     Button b = new JoystickButton(xbox, 1);
     Button x = new JoystickButton(xbox, 3);
     Button y = new JoystickButton(xbox, 4);
 
-    public OI() {
-        b.whenPressed(new DriveCommand(0.4));
-        x.whenPressed(new DriveCommand(-0.4));
+    private void bindButtonsToCommands(){}
+
+    public RobotContainer() {
+        bindButtonsToCommands();
     }
 
 
