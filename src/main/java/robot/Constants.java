@@ -9,7 +9,6 @@ public class Constants {
     //All general constants go here
     //public static final double TIME_STEP = 0.02;
 
-
     public static class Drivetrain {
         public static final double TICKS_PER_METER = 256 / (4 * 0.0254 * Math.PI);
         public static final double MAX_VEL = 3;// in m/s

@@ -1,6 +1,5 @@
 package robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;
 
 /**
@@ -19,7 +18,7 @@ public class Ports {
          * In the static field go all of the talon configuration variables. to write the configuration to the talon,
          * call motor.configAllSettings(Ports.SUBSYSTEM.CONFIG);
          */
-        static{
+        static {
             TALON_CONFIGURATION.slot0.kP = 1;
             TALON_CONFIGURATION.slot0.kI = 0;
             TALON_CONFIGURATION.slot0.kD = 0.2;
