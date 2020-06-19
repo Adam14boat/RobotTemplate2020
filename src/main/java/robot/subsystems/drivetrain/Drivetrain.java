@@ -22,6 +22,8 @@ public class Drivetrain extends Subsystem {
 
     private Solenoid solenoid = new Solenoid(17);
     private Timer coolDown = new Timer();
+    private double lastLeftVelocity = 0;
+    private double lastRightVelocity = 0;
     public Drivetrain() {
         leftMaster.setInverted(true);
         left1.setInverted(true);
@@ -71,6 +73,13 @@ public class Drivetrain extends Subsystem {
         return convertTicksToDistance(leftMaster.getSelectedSensorVelocity()) * 10;
     }
 
+    public double getRightAcceleration() {
+        return (lastRightVelocity - getRightVelocity()) / TIME_STEP;
+    }
+
+    public double getLeftAcceleration() {
+        return (lastLeftVelocity - getLeftVelocity()) / TIME_STEP;
+    }
     public int convertDistanceToTicks(double distance) {
         return (int) (distance * TICKS_PER_METER);
     }
