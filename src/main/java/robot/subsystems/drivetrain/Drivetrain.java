@@ -36,6 +36,9 @@ public class Drivetrain extends Subsystem {
         rightMaster.configPeakCurrentLimit(MAX_CURRENT);
     }
 
+    private boolean isTurning() {
+        return getLeftVelocity() - getRightVelocity() < TURN_THRESHOLD;
+    }
     public void setLeftSpeed(double speed) {
         leftMaster.set(ControlMode.PercentOutput, speed);
     }
