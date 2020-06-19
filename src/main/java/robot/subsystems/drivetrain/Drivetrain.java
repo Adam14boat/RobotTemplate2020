@@ -66,6 +66,10 @@ public class Drivetrain extends Subsystem {
         }
     }
 
+    /**
+     * if the shifter can shift
+     * @return if the robot is not turning and the cool down time is greater than a threshold value
+     */
     private boolean canShift() {
         return !isTurning() && (coolDown.get() >= COOLDOWN_TIME || !hasShifted);
     }
