@@ -27,6 +27,8 @@ public class Drivetrain extends Subsystem {
 
     private double lastLeftVelocity = 0;
     private double lastRightVelocity = 0;
+    private boolean hasShifted = false;
+
     public Drivetrain() {
         leftMaster.setInverted(true);
         left1.setInverted(true);
@@ -42,6 +44,10 @@ public class Drivetrain extends Subsystem {
 
         leftMaster.configPeakCurrentLimit(MAX_CURRENT);
         rightMaster.configPeakCurrentLimit(MAX_CURRENT);
+    }
+
+    private boolean canShift() {
+        return !isTurning() && (coolDown.get() >= COOLDOWN_TIME || !hasShifted);
     }
 
     private boolean isTurning() {
