@@ -53,6 +53,12 @@ public class Drivetrain extends Subsystem {
     private boolean isTurning() {
         return getLeftVelocity() - getRightVelocity() < TURN_THRESHOLD;
     }
+
+    private boolean kickDown() {
+        return getRightVelocity() > 0 && getRightVelocity() < KICKDOWN_VELOCITY_THRESHOLD
+                && getRightAcceleration() < KICKDOWN_ACCEL_THRESHOLD
+                    && isCorrectCurrent();
+    }
     private void startCoolDown() {
         coolDown.stop();
         coolDown.reset();
