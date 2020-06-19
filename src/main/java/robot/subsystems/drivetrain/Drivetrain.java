@@ -73,6 +73,13 @@ public class Drivetrain extends Subsystem {
         hasShifted = true;
         startCoolDown();
     }
+
+    private void shiftUp() {
+        solenoid.set(true);
+        hasShifted = true;
+        startCoolDown();
+    }
+
     private void startCoolDown() {
         coolDown.stop();
         coolDown.reset();
