@@ -17,6 +17,8 @@ public class Constants {
         public static final double MAX_ACCELERATION = 0.4;// in m/s^2 (currently not the correct number)
         public static final int MAX_CURRENT = 35;
         public static final double TURN_THRESHOLD = 0;
+        public static final int PDP_PORT_LEFT_MOTOR = 0;
+        public static final int PDP_PORT_RIGHT_MOTOR = 0;
     }
 
 
