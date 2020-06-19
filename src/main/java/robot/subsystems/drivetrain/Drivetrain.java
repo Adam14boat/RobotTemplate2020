@@ -5,7 +5,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 /**
  * This is a temporary subsystem from last year.
  */
@@ -19,6 +21,7 @@ public class Drivetrain extends Subsystem {
     public VictorSPX left2 = new VictorSPX(15);
 
     private Solenoid solenoid = new Solenoid(17);
+    private Timer coolDown = new Timer();
     public Drivetrain() {
         leftMaster.setInverted(true);
         left1.setInverted(true);
@@ -38,6 +41,11 @@ public class Drivetrain extends Subsystem {
 
     private boolean isTurning() {
         return getLeftVelocity() - getRightVelocity() < TURN_THRESHOLD;
+    }
+    private void startCoolDown() {
+        coolDown.stop();
+        coolDown.reset();
+        coolDown.start();
     }
     public void setLeftSpeed(double speed) {
         leftMaster.set(ControlMode.PercentOutput, speed);
