@@ -46,6 +46,12 @@ public class Drivetrain extends Subsystem {
         rightMaster.configPeakCurrentLimit(MAX_CURRENT);
     }
 
+    public void periodic() {
+        autoShift();
+        lastLeftVelocity = getLeftVelocity();
+        lastRightVelocity = getRightVelocity();
+    }
+
     public void autoShift() {
         if (canShift()) {
             if (kickDown() || coastDown())
@@ -94,6 +100,7 @@ public class Drivetrain extends Subsystem {
         coolDown.reset();
         coolDown.start();
     }
+
     public void setLeftSpeed(double speed) {
         leftMaster.set(ControlMode.PercentOutput, speed);
     }
