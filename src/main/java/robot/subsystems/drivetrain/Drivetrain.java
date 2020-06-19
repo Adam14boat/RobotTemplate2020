@@ -4,6 +4,7 @@ import static robot.Constants.Drivetrain.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * This is a temporary subsystem from last year.
@@ -17,6 +18,7 @@ public class Drivetrain extends Subsystem {
     public VictorSPX right2 = new VictorSPX(13);
     public VictorSPX left2 = new VictorSPX(15);
 
+    private Solenoid solenoid = new Solenoid(17);
     public Drivetrain() {
         leftMaster.setInverted(true);
         left1.setInverted(true);
