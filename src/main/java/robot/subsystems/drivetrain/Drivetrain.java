@@ -63,6 +63,10 @@ public class Drivetrain extends Subsystem {
     private boolean coastDown() {
         return getRightVelocity() > 0 && getRightVelocity() < COASTDOWN_THRESHOLD && isCorrectCurrent();
     }
+
+    private boolean canShiftUp() {
+        return getRightVelocity() > UP_SHIFT_VELOCITY_THRESHOLD && getRightAcceleration() > UP_SHIFT_ACCEL_THRESHOLD;
+    }
     private void startCoolDown() {
         coolDown.stop();
         coolDown.reset();
