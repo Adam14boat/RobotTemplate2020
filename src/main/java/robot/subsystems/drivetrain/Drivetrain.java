@@ -68,7 +68,7 @@ public class Drivetrain extends Subsystem {
         return getRightVelocity() > UP_SHIFT_VELOCITY_THRESHOLD && getRightAcceleration() > UP_SHIFT_ACCEL_THRESHOLD;
     }
 
-    private void downShift() {
+    private void shiftDown() {
         solenoid.set(false);
         hasShifted = true;
         startCoolDown();
