@@ -46,6 +46,15 @@ public class Drivetrain extends Subsystem {
         rightMaster.configPeakCurrentLimit(MAX_CURRENT);
     }
 
+    public void autoShift() {
+        if (canShift()) {
+            if (kickDown() || coastDown())
+                shiftUp();
+            else if (canShiftUp())
+                shiftDown();
+        }
+    }
+
     private boolean canShift() {
         return !isTurning() && (coolDown.get() >= COOLDOWN_TIME || !hasShifted);
     }
