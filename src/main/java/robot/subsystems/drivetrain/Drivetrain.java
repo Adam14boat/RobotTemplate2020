@@ -74,24 +74,43 @@ public class Drivetrain extends Subsystem {
         return !isTurning() && (coolDown.get() >= COOLDOWN_TIME || !hasShifted);
     }
 
+    /**
+     * @return if the robot is turning
+     */
     private boolean isTurning() {
         return getLeftVelocity() - getRightVelocity() < TURN_THRESHOLD;
     }
 
+    /**
+     * if the robot is in kickdown state
+     * @return if the velocity is less than a threshold value and the robot is decelerating
+     * and the current of the motors is correct
+     */
     private boolean kickDown() {
         return getRightVelocity() > 0 && getRightVelocity() < KICKDOWN_VELOCITY_THRESHOLD
                 && getRightAcceleration() < KICKDOWN_ACCEL_THRESHOLD
                     && isCorrectCurrent();
     }
 
+    /**
+     * if the robot is in coastdown state
+     * @return if the robot's velocity is less than a threshold value and the motor currents are correct
+     */
     private boolean coastDown() {
         return getRightVelocity() > 0 && getRightVelocity() < COASTDOWN_THRESHOLD && isCorrectCurrent();
     }
 
+    /**
+     * if the shifter can shift up to high gear
+     * @return if the velocity and the acceleration are greater than a threshold value
+     */
     private boolean canShiftUp() {
         return getRightVelocity() > UP_SHIFT_VELOCITY_THRESHOLD && getRightAcceleration() > UP_SHIFT_ACCEL_THRESHOLD;
     }
 
+    /**
+     * shifts down to low gear
+     */
     private void shiftDown() {
         solenoid.set(false);
         hasShifted = true;
@@ -100,6 +119,9 @@ public class Drivetrain extends Subsystem {
         startCoolDown();
     }
 
+    /**
+     * shifts up to high gear
+     */
     private void shiftUp() {
         solenoid.set(true);
         hasShifted = true;
@@ -108,6 +130,9 @@ public class Drivetrain extends Subsystem {
         startCoolDown();
     }
 
+    /**
+     * starts the cool down timer
+     */
     private void startCoolDown() {
         coolDown.stop();
         coolDown.reset();
@@ -138,18 +163,31 @@ public class Drivetrain extends Subsystem {
         return convertTicksToDistance(leftMaster.getSelectedSensorVelocity()) * 10;
     }
 
+    /**
+     * @return the acceleration of the right wheel
+     */
     public double getRightAcceleration() {
         return (lastRightVelocity - getRightVelocity()) / TIME_STEP;
     }
 
+    /**
+     * @return the acceleration of the left wheel
+     */
     public double getLeftAcceleration() {
         return (lastLeftVelocity - getLeftVelocity()) / TIME_STEP;
     }
 
+    /**
+     * @param channel the pdp port of the motor
+     * @return the current of the channel given
+     */
     public double getMotorCurrent(int channel) {
         return pdp.getCurrent(channel);
     }
 
+    /**
+     * @return if the motor currents are greater than a threshold value
+     */
     public boolean isCorrectCurrent() {
         return getMotorCurrent(PDP_PORT_LEFT_MOTOR) > MIN_CURRENT
                 && getMotorCurrent(PDP_PORT_RIGHT_MOTOR) > MIN_CURRENT;
