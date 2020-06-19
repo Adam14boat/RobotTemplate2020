@@ -4,6 +4,7 @@ import static robot.Constants.Drivetrain.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,6 +23,8 @@ public class Drivetrain extends Subsystem {
 
     private Solenoid solenoid = new Solenoid(17);
     private Timer coolDown = new Timer();
+    PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+
     private double lastLeftVelocity = 0;
     private double lastRightVelocity = 0;
     public Drivetrain() {
@@ -80,6 +83,17 @@ public class Drivetrain extends Subsystem {
     public double getLeftAcceleration() {
         return (lastLeftVelocity - getLeftVelocity()) / TIME_STEP;
     }
+
+    public double getMotorCurrent(int channel) {
+        return pdp.getCurrent(channel);
+    }
+
+    public boolean isCorrectCurrent() {
+        return getMotorCurrent(PDP_PORT_LEFT_MOTOR) > MIN_CURRENT
+                && getMotorCurrent(PDP_PORT_RIGHT_MOTOR) > MIN_CURRENT;
+    }
+
+
     public int convertDistanceToTicks(double distance) {
         return (int) (distance * TICKS_PER_METER);
     }
