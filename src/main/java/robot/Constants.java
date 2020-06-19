@@ -19,6 +19,7 @@ public class Constants {
         public static final double TURN_THRESHOLD = 0;
         public static final double KICKDOWN_VELOCITY_THRESHOLD = 0;
         public static final double KICKDOWN_ACCEL_THRESHOLD = -0; // should be a negative number
+        public static final double COASTDOWN_THRESHOLD = 0; // should be less than KICKDOWN_VELOCITY_THRESHOLD
         public static final int COOLDOWN_TIME = 5;
         public static final int PDP_PORT_LEFT_MOTOR = 0;
         public static final int PDP_PORT_RIGHT_MOTOR = 0;
