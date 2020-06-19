@@ -28,8 +28,6 @@ public class Drivetrain extends Subsystem {
     private double lastLeftVelocity = 0;
     private double lastRightVelocity = 0;
     private boolean hasShifted = false;
-    private boolean isHighGear = false;
-    private boolean isLowGear = false;
 
     public Drivetrain() {
         leftMaster.setInverted(true);
@@ -59,9 +57,9 @@ public class Drivetrain extends Subsystem {
      */
     public void autoShift() {
         if (canShift()) {
-            if ((kickDown() || coastDown()) && isHighGear)
+            if ((kickDown() || coastDown()) && !solenoid.get())
                 shiftDown();
-            else if (canShiftUp() && isLowGear)
+            else if (canShiftUp() && solenoid.get())
                 shiftUp();
         }
     }
@@ -114,8 +112,6 @@ public class Drivetrain extends Subsystem {
     private void shiftDown() {
         solenoid.set(false);
         hasShifted = true;
-        isLowGear = true;
-        isHighGear = false;
         startCoolDown();
     }
 
@@ -125,8 +121,6 @@ public class Drivetrain extends Subsystem {
     private void shiftUp() {
         solenoid.set(true);
         hasShifted = true;
-        isHighGear = true;
-        isLowGear = false;
         startCoolDown();
     }
 
