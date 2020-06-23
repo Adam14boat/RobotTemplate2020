@@ -7,12 +7,12 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /**
  * This is a temporary subsystem from last year.
  */
-public class Drivetrain extends Subsystem {
+public class Drivetrain extends SubsystemBase {
 
     public TalonSRX leftMaster = new TalonSRX(16);
     public TalonSRX rightMaster = new TalonSRX(11);
@@ -238,10 +238,5 @@ public class Drivetrain extends Subsystem {
 
     public double convertTicksToDistance(int tick) {
         return tick / TICKS_PER_METER;
-    }
-
-    @Override
-    protected void initDefaultCommand() {
-
     }
 }
