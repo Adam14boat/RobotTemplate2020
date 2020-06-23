@@ -81,34 +81,38 @@ public class Drivetrain extends SubsystemBase {
      * @return if the robot is turning
      */
     private boolean isTurning() {
-        return getLeftVelocity() - getRightVelocity() < TURN_THRESHOLD;
+        return Math.abs(getLeftVelocity() - getRightVelocity()) < TURN_THRESHOLD;
     }
 
     /**
      * if the robot is in kickdown state
-     * @return if the velocity is less than a threshold value and the robot is decelerating
-     * and the current of the motors is correct
+     * @return if the velocity is less than a threshold value and the robot's right side is decelerating
+     * and the current of the motors is correct. We can check only the right velocity and acceleration
+     * because we checked in autoShift that the robot is not turning
      */
     private boolean kickDown() {
-        return getRightVelocity() > 0 && getRightVelocity() < KICKDOWN_VELOCITY_THRESHOLD
-                && getRightAcceleration() < KICKDOWN_ACCEL_THRESHOLD
+        return Math.abs(getRightVelocity()) > 0 && Math.abs(getRightVelocity()) < KICKDOWN_VELOCITY_THRESHOLD
+                && getRightVelocitySign() * getRightAcceleration() < KICKDOWN_ACCEL_THRESHOLD
                     && isCorrectCurrent();
     }
 
     /**
      * if the robot is in coastdown state
-     * @return if the robot's velocity is less than a threshold value less than the kickdown threshold and the motor currents are correct
+     * @return if the robot's velocity is less than a threshold value less than the kickdown threshold
+     * and the motor currents are correct. We can check only the velocity of the right side because we checked in autoShift
+     * that the robot is not turning.
      */
     private boolean coastDown() {
-        return getRightVelocity() > 0 && getRightVelocity() < COASTDOWN_THRESHOLD && isCorrectCurrent();
+        return Math.abs(getRightVelocity()) > 0 && Math.abs(getRightVelocity()) < COASTDOWN_THRESHOLD && isCorrectCurrent();
     }
 
     /**
      * if the shifter can shift up to high gear
-     * @return if the velocity and the acceleration are greater than a threshold value
+     * @return if the velocity and the acceleration are greater than a threshold value. We can check only the right velocity and acceleration
+     * because we checked in autoShift that the robot is not turning
      */
     private boolean canShiftUp() {
-        return getRightVelocity() > UP_SHIFT_VELOCITY_THRESHOLD && getRightAcceleration() > UP_SHIFT_ACCEL_THRESHOLD;
+        return Math.abs(getRightVelocity()) > UP_SHIFT_VELOCITY_THRESHOLD && getRightVelocitySign() * getRightAcceleration() > UP_SHIFT_ACCEL_THRESHOLD;
     }
 
     /**
@@ -175,6 +179,21 @@ public class Drivetrain extends SubsystemBase {
     public double getLeftAcceleration() {
         return (lastLeftVelocity - getLeftVelocity()) / TIME_STEP;
     }
+
+    /**
+     * @return the sign of the right velocity
+     */
+    public int getRightVelocitySign() {
+        return (int) Math.signum(getRightVelocity());
+    }
+
+    /**
+     * @return the sign of the left velocity
+     */
+    public int getLeftVelocitySign() {
+        return (int) Math.signum(getLeftVelocity());
+    }
+
 
     /**
      * @param channel the pdp port of the motor
