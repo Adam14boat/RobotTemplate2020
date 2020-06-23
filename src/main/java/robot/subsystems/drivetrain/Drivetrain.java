@@ -1,6 +1,8 @@
 package robot.subsystems.drivetrain;
 
 import static robot.Constants.Drivetrain.*;
+import static robot.Ports.Drivetrain.*;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -14,14 +16,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class Drivetrain extends SubsystemBase {
 
-    public TalonSRX leftMaster = new TalonSRX(16);
-    public TalonSRX rightMaster = new TalonSRX(11);
-    public VictorSPX right1 = new VictorSPX(12);
-    public VictorSPX left1 = new VictorSPX(14);
-    public VictorSPX right2 = new VictorSPX(13);
-    public VictorSPX left2 = new VictorSPX(15);
+    public TalonSRX leftMaster = new TalonSRX(LEFT_MASTER_MOTOR);
+    public TalonSRX rightMaster = new TalonSRX(RIGHT_MASTER_MOTOR);
+    public VictorSPX right1 = new VictorSPX(RIGHT_SLAVE_MOTOR_1);
+    public VictorSPX left1 = new VictorSPX(LEFT_SLAVE_MOTOR_1);
+    public VictorSPX right2 = new VictorSPX(RIGHT_SLAVE_MOTOR_2);
+    public VictorSPX left2 = new VictorSPX(LEFT_SLAVE_MOTOR_2);
 
-    private Solenoid solenoid = new Solenoid(17);
+    private Solenoid solenoid = new Solenoid(SOLENOID);
     private Timer coolDown = new Timer();
     PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
