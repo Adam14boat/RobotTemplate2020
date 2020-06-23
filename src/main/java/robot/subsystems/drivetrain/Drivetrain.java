@@ -87,8 +87,8 @@ public class Drivetrain extends SubsystemBase {
     /**
      * if the robot is in kickdown state
      * @return if the velocity is less than a threshold value and the robot's right side is decelerating
-     * and the current of the motors is correct. We can check only the right velocity and acceleration
-     * because we checked in autoShift that the robot is not turning
+     * (the velocity sign is opposite to the acceleration sign) and the current of the motors is correct.
+     * We can check only the right velocity and acceleration because we checked in autoShift that the robot is not turning.
      */
     private boolean kickDown() {
         return Math.abs(getRightVelocity()) > 0 && Math.abs(getRightVelocity()) < KICKDOWN_VELOCITY_THRESHOLD
@@ -108,8 +108,8 @@ public class Drivetrain extends SubsystemBase {
 
     /**
      * if the shifter can shift up to high gear
-     * @return if the velocity and the acceleration are greater than a threshold value. We can check only the right velocity and acceleration
-     * because we checked in autoShift that the robot is not turning
+     * @return if the velocity and the acceleration (velocity and acceleration with the same sign) are greater than a threshold value.
+     * We can check only the right velocity and acceleration because we checked in autoShift that the robot is not turning.
      */
     private boolean canShiftUp() {
         return Math.abs(getRightVelocity()) > UP_SHIFT_VELOCITY_THRESHOLD && getRightVelocitySign() * getRightAcceleration() > UP_SHIFT_ACCEL_THRESHOLD;
