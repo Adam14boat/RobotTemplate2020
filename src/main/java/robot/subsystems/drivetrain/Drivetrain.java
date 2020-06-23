@@ -46,6 +46,9 @@ public class Drivetrain extends SubsystemBase {
         rightMaster.configPeakCurrentLimit(MAX_CURRENT);
     }
 
+    /**
+     * runs methods periodically
+     */
     public void periodic() {
         autoShift();
         lastLeftVelocity = getLeftVelocity();
@@ -92,7 +95,7 @@ public class Drivetrain extends SubsystemBase {
 
     /**
      * if the robot is in coastdown state
-     * @return if the robot's velocity is less than a threshold value and the motor currents are correct
+     * @return if the robot's velocity is less than a threshold value less than the kickdown threshold and the motor currents are correct
      */
     private boolean coastDown() {
         return getRightVelocity() > 0 && getRightVelocity() < COASTDOWN_THRESHOLD && isCorrectCurrent();
